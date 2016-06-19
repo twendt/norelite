@@ -132,10 +132,6 @@ module.exports = function (RED) {
                 self.timeouttimer = setTimeout(function(){
                     self.send(msg);
 
-                    //Only setup repeat for top eval node
-                    if (!self.inputson){
-                        self.repeattimer = setInterval(self.assessRules, 60*1000);
-                    }
                 }, self.outputdelay ? 0 : (parseInt(self.configNode.delay)*1000));
 
                 //Setup repeat every 1min
