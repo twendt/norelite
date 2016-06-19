@@ -93,11 +93,11 @@ module.exports = function (RED) {
             //Create the message
             var msg = {};
             //Copy payload (do not reference!)
-            msg.payload = JSON.parse(JSON.stringify(self.basepayload));
+            //msg.payload = JSON.parse(JSON.stringify(self.basepayload));
 
             if (numbersTrue === self.rules.length || (numbersTrue > 0 && !self.checkall)){
                 if (!self.inputson){
-                    msg.payload.status = 1;
+                    msg.payload = 1;
 
                     common.setStatus(self, 1, "Active "+numbersTrue+"/"+self.rules.length);
                 } else {
@@ -105,17 +105,17 @@ module.exports = function (RED) {
                         //Don't modify the status from the incoming
 
                         //Show that the rule is active
-                        common.setStatus(self, msg.payload.status, "Active "+numbersTrue+"/"+self.rules.length);
+                        common.setStatus(self, msg.payload, "Active "+numbersTrue+"/"+self.rules.length);
                     } else {
                         //Make sure that status = 0 if no new message has arrived
-                        msg.payload.status = 0;
+                        msg.payload = 0;
 
                         //Show that the rule is inactive
                         common.setStatus(self, -1, "Missing input "+numbersTrue+"/"+self.rules.length);
                     }
                 }
             } else {
-                msg.payload.status = 0;
+                msg.payload = 0;
                 common.setStatus(self, -1, "Inactive "+numbersTrue+"/"+self.rules.length);
             }
 
@@ -123,7 +123,7 @@ module.exports = function (RED) {
             /* Only send out the message if no input is used or if a new base payload has been received */
             if (!self.inputson || self.inputreceived){
                 //Set the correct id
-                msg.payload.lid = self.id;
+                //msg.payload.lid = self.id;
 
                 //Set the name
                 msg.name = self.name;
